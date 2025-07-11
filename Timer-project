@@ -1,0 +1,107 @@
+# For color format all color code will be in color-hunt website or refer project_definition document
+# This program has going to create like this 25 min work and 5min break, 25 min work and 5min break,
+# 25 min work and 5min break, 25 min work and 20min break, like this we are going to program the timer
+
+from tkinter import *
+import math
+# TODO-1 ---------------------------- CONSTANTS ------------------------------------------------------------------ #
+PINK = "#e2979c"
+RED = "#e7305b"
+GREEN = "#9bdeac"
+YELLOW = "#f7f5dd"
+blue = "#3D74B6"
+orange = "#FFA500"
+gray = "#808080"
+black = "#000000"
+FONT_NAME = "Courier"
+WORK_MIN = 55 # 3300 sec
+SHORT_BREAK_MIN = 5 # 300 sec
+LONG_BREAK_MIN = 20 # 1200 sec
+reps = 0
+timer = None
+
+# TODO-2 ---------------------------- TIMER RESET ---------------------------------------------------------------- #
+# to reset our timer to 00:00
+def reset_timer():
+    window.after_cancel(timer)
+    canvas.itemconfig(timer_text, text="00:00")
+    title_label.config(text="Timer")
+    check_mark.config(text="")
+    global reps
+    reps = 0
+# TODO-3 ---------------------------- TIMER MECHANISM ------------------------------------------------------------ #
+
+def start_timer():
+    global reps
+    reps += 1
+
+
+    work_sec = WORK_MIN * 60 # 3300 sec
+    short_break_min = SHORT_BREAK_MIN * 60 # 300 sec
+    long_break_min = LONG_BREAK_MIN * 60 # 1200 sec
+
+    if reps % 8 == 0:# this number divisible by 8 but remainder = 0
+        count_down(long_break_min)
+        title_label.config(text="Take a Break Eat-something and come", fg=blue, bg=orange, font=(FONT_NAME, 20))
+    elif reps % 2 == 0: # if not divisible by 8 then it is divisible by 2 any number but remainder = 0
+        count_down(short_break_min)
+        title_label.config(text="Take a Short Break", fg=PINK, bg=orange, font=("Comic Sans MS", 30, "bold"))
+    # we can create another elif reps % 1 == 0: or reps % 3 == 0: instead of using else
+    else: # if the remainder is 1 this will run
+        count_down(work_sec)
+        title_label.config(text="DO YOUR WORK", fg=black, bg=orange, font=("Times New Roman", 40, "italic"))
+# TODO-4 ---------------------------- COUNTDOWN MECHANISM -------------------------------------------------------- #
+# after->key it works run function after a specific time(in milliseconds) it's useful for creating timers,animating
+# # or repeating task without freezing the GUI
+def count_down(count):
+    # it will not give decimal value if it 5.76 but it give 5
+    count_min = math.floor(count / 60) # 300/60 = 5 min
+    count_sec = count % 60 # 300%60 = 0 remainder so both data combined together as 5:0
+    # to change 5:00-->
+    if count_sec <= 9:
+        count_sec = f"0{count_sec}" # it will add 0 when it reach 9 sec it show's 09
+
+    canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")# **kwargs
+    if count > 0:
+        global timer
+        timer = window.after(1000, count_down, count - 1) # *args
+    else:
+        start_timer()# its recalling our TIMER MECHANISM
+        marks = ""
+        work_session = math.floor(reps/2)
+        for _ in range(work_session):
+            marks += "✔"
+        check_mark.config(text=marks)# for every session we complete check mark will be displayed
+# TODO-5 ---------------------------- UI SETUP ------------------------------------------------------------------- #
+window = Tk()
+window.title("TIMER INTERFACE")
+window.config(padx=100, pady=50, bg=orange) # increase the size all edges our program within the size
+
+# Label
+title_label = Label(text="Timer", fg=black, bg=orange, font=("Arial", 50))
+title_label.grid(column=1, row=0)
+
+# canvas
+# highlight-thickness the thickness white bordered color will remove but we can't give any color code
+# for that but we can able to give any numbers instead of 0 to cross check it.
+canvas = Canvas(width=200, height=224, bg=orange, highlightthickness=0)  # width and height of our canvas
+image_file = PhotoImage(file="tomato.png")  # our image file
+canvas.create_image(100, 112, image=image_file)  # opening our image file as half of the width and height size
+# Unlimited positional argument are like we have given the numbers for position it's called *args
+# Unlimited keyword argument like we have given image = image_file it's called **kwargs
+timer_text = canvas.create_text(100, 112, text="00.00", fill="white", font=(FONT_NAME, 35, "italic"))# it include both *args & **kwargs
+canvas.grid(column=1, row=1)
+
+# start button
+start_button = Button(text="Start", highlightthickness=0,  command=start_timer) # call this function start_timer
+start_button.grid(column=0, row=2)
+
+# reset button
+reset_button = Button(text="Reset", highlightthickness=0, command=reset_timer)
+reset_button.grid(column=2, row=2)
+
+#check-mark
+check_mark = Label(fg=GREEN, bg=black)
+check_mark.grid(column=1, row=3)
+
+window.mainloop()
