@@ -1,0 +1,85 @@
+TODO-------------------------------------------------------------------------------------------------------------
+Using gui-tkinter creating a timer project
+Building a pomodoro app
+Using pomodoro technique invented by francesco cirillo
+This can tell how de we manage our time
+TODO-------------------------------------------------------------------------------------------------------------
+TODO-1: Decide on the task to be done
+TODO-2: Set the timer to 25 minutes or 2hours and 30 minutes it should be any time
+TODO-3: Work on the task until the time rings
+TODO-4: Take a short 5 minutes break
+TODO-5: After a task completed take 15-30 minutes break
+This program has going to create like this 25 min work and 5min break, 25 min work and 5min break,
+25 min work and 5min break, 25 min work and 20min break, like this we are going to program the timer
+TODO-------------------------------------------------------------------------------------------------------------
+What is an canvas widget?
+    A Canvas widget is a special area in GUI where you can draw shape, display images, create custom graphics
+    or place with other widgets.It's like a blank drawing board that gives you full control over what gets
+    displayed inside
+
+Use case for canvas widget:
+1.Drawing lines,rectangle,circle etc.
+2.displaying text or image
+3.animating object (moving them across the screen).
+4.creating interactive graphics like games or design tools
+TODO-------------------------------------------------------------------------------------------------------------
+Basic color code:
+TODO: white  - #FFFFFF
+TODO: black  - #000000
+TODO: red    - #FF0000
+TODO: green  - #00FF00
+TODO: blue   - #0000FF
+TODO: yellow - #FFFF00
+TODO: orange - #FFA500
+TODO: pink   - #FFC0CB
+TODO: purple - #800080
+TODO: gray   - #808080
+For advance color format all color code will be in color-hunt website
+
+using grid GRID always start from 0,0
+        0                 1                    2
+    |---------|---------------------------|------------|
+  0 |         |                           |            |
+    |         |  Timer heading text       |            |
+    |---------|---------------------------|------------|
+    |         |                           |            |
+    |         |  Tomato image was here    |            |
+  1 |         |            🍅             |            |
+    |         |                           |            |
+    |         |                           |            |
+    |---------|---------------------------|------------|
+  2 | start   |                           | reset      |
+    |---------|---------------------------|------------|
+  3 |         |            ✔              |            |
+    |---------|---------------------------|------------|
+TODO-------------------------------------------------------------------------------------------------------------
+we have 3 column 4 row's and into this using our grid key how do we get logic for this
+TODO timer = (1,0)
+TODO tomato_image = (1,1)
+TODO start_button = (0,2)
+TODO reset_button = (2,2)
+TODO check_mark ✔ = (1,3) this is the solution
+
+TCL-error cannot use geometry manager pack inside which already has slave managed by grid
+this error occur when we miss calling pack() key or we have forgot to mention column or row name
+
+after->key it works run function after a specific time(in milliseconds) it's useful for creating timers,animating
+or repeating task without freezing the GUI
+how de we use after key using functions argument to define and recall it will run in milliseconds an function name
+def say_somthing(thing):
+    print(thing)
+window.after(1000, say_somthing)
+TODO-------------------------------------------------------------------------------------------------------------
+What is dynamic typing?
+a = 0
+print(a)
+a = "00"
+print(a)
+this way we are not changing the variable but we are changing the content inside that variable is called dynamic typing
+TODO-------------------------------------------------------------------------------------------------------------
+    comment this line of code to pause and reset the timer to check how we can change font how font was interacting
+    # canvas.itemconfig(timer_text, text="00:00")
+    # title_label.config(text="Timer")
+    # check_mark.config(text="")
+    # global reps
+    # reps = 0
